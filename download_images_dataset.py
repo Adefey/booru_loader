@@ -6,8 +6,7 @@ import json
 
 
 async def main():
-    # Download 100 images with tags "amon_(atrolux)", "kyra_(atrolux)"
-    # and save in json formated as url:tags
+    # Download 100 images with tags `amon_(atrolux)`, `kyra_(atrolux)` and save in json formated as url:tags
     posts = await get_url_tags(
         tags=["amon_(atrolux)", "kyra_(atrolux)"], limit=100, page=1
     )

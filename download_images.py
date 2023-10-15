@@ -5,7 +5,7 @@ from utils import download_image
 
 
 async def main():
-    # Download 100 images with tags "amon_(atrolux)", "kyra_(atrolux)"
+    # Download 100 images with tags `amon_(atrolux)`, `kyra_(atrolux)` to folder `images`
     posts = await get_images_urls(
         tags=["amon_(atrolux)", "kyra_(atrolux)"], limit=100, page=1
     )

@@ -11,7 +11,7 @@ from utils import download_image
 
 
 async def main():
-    # Download 100 images with tags "amon_(atrolux)", "kyra_(atrolux)"
+    # Download 100 images with tags `amon_(atrolux)`, `kyra_(atrolux)` to folder `images`
     posts = await get_images_urls(
         tags=["amon_(atrolux)", "kyra_(atrolux)"], limit=100, page=1
     )
@@ -33,8 +33,7 @@ import json
 
 
 async def main():
-    # Download 100 images with tags "amon_(atrolux)", "kyra_(atrolux)"
-    # and save in json formated as url:tags
+    # Download 100 images with tags `amon_(atrolux)`, `kyra_(atrolux)` and save in json formated as url:tags
     posts = await get_url_tags(
         tags=["amon_(atrolux)", "kyra_(atrolux)"], limit=100, page=1
     )
@@ -54,7 +53,7 @@ from utils import download_image
 
 
 async def main():
-    # Download 100 images with tags "amon_(atrolux)", "kyra_(atrolux)"
+    # Download all images with tags `amon_(atrolux)`, `solo` to folder `images`
     posts = []
     for i in range(1, 700):
         new_posts = await get_images_urls(
