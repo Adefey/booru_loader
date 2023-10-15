@@ -35,12 +35,14 @@ async def execute_get_request(url: str, params: dict) -> dict:
                 status = resp.status
                 if status != 200:
                     raise ApiStatusException(
-                        f"Status: {status}; Response: {response_text}"
+                        f"Booru api status: {status}; Response: {response_text}"
                     )
                 response_json = json.loads(response_text)
                 return response_json
     except Exception as exc:
-        raise ApiCriticalException(f"Cannot perform request, error: {exc}") from exc
+        raise ApiCriticalException(
+            f"Cannot perform booru api request, error: {repr(exc)}"
+        ) from exc
 
 
 async def get_images_by_tags(
