@@ -69,7 +69,7 @@ async def get_images_urls(
     tags: list[str] = None, limit: int = 50, page: int = 1
 ) -> list[str]:
     data = await get_images_by_tags(tags, limit, page)
-    urls = [entry["file"]["url"] for entry in data]
+    urls = [entry["file"]["url"] for entry in data if entry["file"]["url"]]
     return urls
 
 
@@ -77,5 +77,7 @@ async def get_url_tags(
     tags: list[str] = None, limit: int = 50, page: int = 1
 ) -> list[str]:
     data = await get_images_by_tags(tags, limit, page)
-    data_with_tags = {entry["file"]["url"]: entry["tags"] for entry in data}
+    data_with_tags = {
+        entry["file"]["url"]: entry["tags"] for entry in data if entry["file"]["url"]
+    }
     return data_with_tags

@@ -1,5 +1,6 @@
 import aiohttp
 import aiofiles
+from aiofiles.os import makedirs
 import os
 
 from config import (
@@ -18,6 +19,7 @@ class UtilsCriticalException(Exception):
 
 async def download_image(url, folder="."):
     image_name = url[url.rfind("/") + 1 :]
+    await makedirs(folder, exist_ok=True)
     try:
         async with aiohttp.ClientSession() as session:
             async with session.get(
