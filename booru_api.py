@@ -27,7 +27,9 @@ async def execute_get_request(url: str, params: dict) -> dict:
     try:
         async with aiohttp.ClientSession() as session:
             logging.info(params)
-            async with session.get(url, params=params, timeout=TIMEOUT, headers={"User-Agent":USER_AGENT}) as resp:
+            async with session.get(
+                url, params=params, timeout=TIMEOUT, headers={"User-Agent": USER_AGENT}
+            ) as resp:
                 logging.info(f"url: {url}; params: {params}")
                 response_text = await resp.text()
                 status = resp.status
@@ -60,12 +62,18 @@ async def get_images_by_tags(
     images = data["posts"]
     return images
 
-async def get_images_urls(tags: list[str] = None, limit: int = 50, page: int = 1) -> list[str]:
+
+async def get_images_urls(
+    tags: list[str] = None, limit: int = 50, page: int = 1
+) -> list[str]:
     data = await get_images_by_tags(tags, limit, page)
     urls = [entry["file"]["url"] for entry in data]
     return urls
 
-async def get_url_tags(tags: list[str] = None, limit: int = 50, page: int = 1) -> list[str]:
+
+async def get_url_tags(
+    tags: list[str] = None, limit: int = 50, page: int = 1
+) -> list[str]:
     data = await get_images_by_tags(tags, limit, page)
     data_with_tags = {entry["file"]["url"]: entry["tags"] for entry in data}
     return data_with_tags
