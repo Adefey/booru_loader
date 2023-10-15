@@ -1,11 +1,7 @@
-import requests
 import aiohttp
 import json
-from urllib.parse import urljoin, urlencode, urlparse
+from urllib.parse import urljoin
 import logging
-import itertools
-
-logging.basicConfig(level=logging.INFO)
 
 from config import (
     E621_BASE_URL,
@@ -13,6 +9,8 @@ from config import (
     TIMEOUT,
     USER_AGENT,
 )
+
+logging.basicConfig(level=logging.INFO)
 
 
 class ApiStatusException(Exception):
@@ -28,14 +26,18 @@ async def execute_get_request(url: str, params: dict) -> dict:
         async with aiohttp.ClientSession() as session:
             logging.info(params)
             async with session.get(
-                url, params=params, timeout=TIMEOUT, headers={"User-Agent": USER_AGENT}
+                url,
+                params=params,
+                timeout=TIMEOUT,
+                headers={"User-Agent": USER_AGENT},
             ) as resp:
                 logging.info(f"url: {url}; params: {params}")
                 response_text = await resp.text()
                 status = resp.status
                 if status != 200:
                     raise ApiStatusException(
-                        f"Booru api status: {status}; Response: {response_text}"
+                        f"Booru api status: {status};"
+                        f"Response: {response_text}"
                     )
                 response_json = json.loads(response_text)
                 return response_json
@@ -78,6 +80,8 @@ async def get_url_tags(
 ) -> list[str]:
     data = await get_images_by_tags(tags, limit, page)
     data_with_tags = {
-        entry["file"]["url"]: entry["tags"] for entry in data if entry["file"]["url"]
+        entry["file"]["url"]: entry["tags"]
+        for entry in data
+        if entry["file"]["url"]
     }
     return data_with_tags

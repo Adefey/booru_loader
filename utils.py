@@ -26,8 +26,12 @@ async def download_image(url, folder="."):
                 url, timeout=TIMEOUT, headers={"User-Agent": USER_AGENT}
             ) as resp:
                 if resp.status != 200:
-                    raise UtilsStatusException("Image download status is not 200")
-                f = await aiofiles.open(os.path.join(folder, image_name), mode="wb")
+                    raise UtilsStatusException(
+                        "Image download status is not 200"
+                    )
+                f = await aiofiles.open(
+                    os.path.join(folder, image_name), mode="wb"
+                )
                 await f.write(await resp.read())
                 await f.close()
     except Exception as exc:
